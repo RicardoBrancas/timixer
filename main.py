@@ -3,9 +3,11 @@
 import random
 
 
-def tryAddFirst(dest, src):
+def tryAddFirst(dest, src, other_src):
     if not src[0] in dest:
         dest.append(src[0])
+    if src[0] in other_src:
+        other_src.remove(src[0])
     del src[0]
 
 
@@ -13,14 +15,14 @@ def mix(a, b):
     res = []
     while a or b:
         if a and b:
-            if random.random() > 0.5:
-                tryAddFirst(res, a)
+            if random.random() < 0.5:
+                tryAddFirst(res, a, b)
             else:
-                tryAddFirst(res, b)
+                tryAddFirst(res, b, a)
         elif a:
-            tryAddFirst(res, a)
+            tryAddFirst(res, a, b)
         elif b:
-            tryAddFirst(res, b)
+            tryAddFirst(res, b, a)
 
     return res
 
